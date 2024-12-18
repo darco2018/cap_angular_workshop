@@ -9,6 +9,7 @@
       required
       maxlength="13"
     />
+    <!-- display hints on errors -->
     <mat-hint align="end">{{userLoginModel.username.length}}/13</mat-hint>
     <mat-hint align="start" *ngIf="
         loginForm.controls['username']?.dirty && 
