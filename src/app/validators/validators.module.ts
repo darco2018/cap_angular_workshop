@@ -5,5 +5,6 @@ import { ContainsCharacterAndNumberDirective } from './contains-character-and-nu
 @NgModule({
   declarations: [],
   imports: [CommonModule, ContainsCharacterAndNumberDirective],
+  exports: [ContainsCharacterAndNumberDirective],
 })
 export class ValidatorsModule {}

@@ -10,11 +10,15 @@
       maxlength="13"
     />
     <!-- display hints on errors -->
-    <mat-hint align="end">{{userLoginModel.username.length}}/13</mat-hint>
-    <mat-hint align="start" *ngIf="
-        loginForm.controls['username']?.dirty && 
-        loginForm.getError('required', 'username')"
-        >Username is required</mat-hint>
+    <mat-hint align="end">{{ userLoginModel.username.length }}/13</mat-hint>
+    <mat-hint
+      align="start"
+      *ngIf="
+        loginForm.controls['username']?.dirty &&
+        loginForm.getError('required', 'username')
+      "
+      >Username is required</mat-hint
+    >
   </mat-form-field>
   <mat-form-field>
     <mat-label>Password</mat-label>
@@ -29,20 +33,14 @@
     />
 
     <!-- newer syntax since Angular 17 -->
-    @if (
-       loginForm.controls['password'].dirty && 
-       loginForm.getError('minlength', 'password')
-    ) {
-      <mat-hint align="end">
-          Min length should be 5 characters!
-        </mat-hint>
-    }  @else if (
-            loginForm.controls["password"].dirty &&
-            loginForm.getError("containsCharacterAndNumber", "password")
-    ) {
-      <mat-hint align="end">
-          Password should contain one number and one letter
-      </mat-hint>
+    @if ( loginForm.controls['password'].dirty &&
+    loginForm.getError('minlength', 'password') ) {
+    <mat-hint align="end"> Min length should be 5 characters! </mat-hint>
+    } @else if ( loginForm.controls["password"].dirty &&
+    loginForm.getError("containsCharacterAndNumber", "password") ) {
+    <mat-hint align="end">
+      Password should contain one number and one letter
+    </mat-hint>
     }
   </mat-form-field>
   <!-- mat-raised-button makes it a submit button or ngForm perhaps? -->
