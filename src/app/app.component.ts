@@ -12,7 +12,7 @@ import { LoginContainerComponent } from "./auth/login-container/login-container.
       [header]="title" 
       (onLogoClick)="onTitleClick()"
     />
-    <app-login-container></app-login-container>   
+   
     <router-outlet />
   `,
   styleUrl: './app.component.scss',
