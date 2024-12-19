@@ -9,6 +9,7 @@
       required
       maxlength="13"
     />
+
     <!-- display hints on errors -->
     <mat-hint align="end">{{ userLoginModel.username.length }}/13</mat-hint>
     <mat-hint
@@ -33,13 +34,13 @@
     />
 
     <!-- newer syntax since Angular 17 -->
-    @if ( loginForm.controls['password'].dirty &&
-    loginForm.getError('minlength', 'password') ) {
+    @if (isPasswordControlDirty() &&
+    loginForm.getError('minlength', 'password')) {
     <mat-hint align="end"> Min length should be 5 characters! </mat-hint>
-    } @else if ( loginForm.controls["password"].dirty &&
+    } @else if ( isPasswordControlDirty() &&
     loginForm.getError("containsCharacterAndNumber", "password") ) {
     <mat-hint align="end">
-      Password should contain one number and one letter
+      Password should contain one number and one letter!!
     </mat-hint>
     }
   </mat-form-field>

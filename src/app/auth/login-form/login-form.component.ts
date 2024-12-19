@@ -20,17 +20,18 @@ import { ValidatorsModule } from '../../validators/validators.module';
   ],
 })
 export class LoginFormComponent {
-// @ViewChild decorator will look for the element with thie template reference  
-// 'loginForm' and assign it to the property 'loginForm'
+  // @ViewChild decorator will look for the element with thie template reference
+  // 'loginForm' and assign it to the property 'loginForm'
   @ViewChild('loginForm')
   loginForm!: NgForm;
   userLoginModel: UserLoginType = { password: '', username: '' };
 
+  isPasswordControlDirty(): boolean {
+    return (this.loginForm?.controls['password']?.dirty ?? false);
+  }
+
   onLogin(): void {
     console.log('Login now...');
-
-    if (this.loginForm.invalid) return;
-
     this.loginForm.resetForm();
   }
 }
