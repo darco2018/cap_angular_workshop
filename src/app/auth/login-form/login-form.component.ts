@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { UserLoginType } from '../userLogin';
 import { CommonModule } from '@angular/common';
 import { ValidatorsModule } from '../../validators/validators.module';
@@ -11,12 +11,26 @@ import { ValidatorsModule } from '../../validators/validators.module';
   standalone: true,
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
-  imports: [MatInputModule, MatButtonModule, FormsModule, CommonModule, ValidatorsModule],
+  imports: [
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
+    CommonModule,
+    ValidatorsModule,
+  ],
 })
 export class LoginFormComponent {
+// @ViewChild decorator will look for the element with thie template reference  
+// 'loginForm' and assign it to the property 'loginForm'
+  @ViewChild('loginForm')
+  loginForm!: NgForm;
   userLoginModel: UserLoginType = { password: '', username: '' };
 
-  onLogin() {
+  onLogin(): void {
     console.log('Login now...');
+
+    if (this.loginForm.invalid) return;
+
+    this.loginForm.resetForm();
   }
 }
