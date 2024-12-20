@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
+  // Providers tell Angular how to create instances of dependencies. 
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
