@@ -5,10 +5,19 @@ import { loginGuard } from './auth/login.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginContainerComponent },
-  { path: '', component: DashboardContainerComponent, canActivate: [loginGuard] },
+  // { path: '', component: DashboardContainerComponent, canActivate: [loginGuard] },
   // we are automatically redirected to /login if guard returns false
 
+  // dashboard route po dodaniu LAZY LOADING
+  {
+    path: '',
+    canActivate: [loginGuard],
+    loadComponent: () =>
+      import(
+        './dashboard/dashboard-container/dashboard-container.component'
+      ).then((module) => module.DashboardContainerComponent),
+  },
+
   // wildcard ** - you are automatically redirected when you put somethong after http://localhost:4200/''
-  {path: '**', redirectTo: 'login'}
-  
+  { path: '**', redirectTo: 'login' },
 ];
