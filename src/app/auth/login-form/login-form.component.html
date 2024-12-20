@@ -11,7 +11,7 @@
     />
 
     <!-- display hints on errors -->
-    <mat-hint align="end">{{ userLoginType.username?.length }}/13</mat-hint>
+    <mat-hint align="end" *ngIf="userLoginType && userLoginType.username">{{ userLoginType.username.length }}/13</mat-hint>
     <mat-hint
       align="start"
       *ngIf="
