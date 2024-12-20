@@ -4,14 +4,14 @@
     <input
       type="text"
       name="username"
-      [(ngModel)]="userLoginModel.username"
+      [(ngModel)]="userLoginType.username"
       matInput
       required
       maxlength="13"
     />
 
     <!-- display hints on errors -->
-    <mat-hint align="end">{{ userLoginModel.username?.length }}/13</mat-hint>
+    <mat-hint align="end">{{ userLoginType.username?.length }}/13</mat-hint>
     <mat-hint
       align="start"
       *ngIf="
@@ -26,7 +26,7 @@
     <input
       type="password"
       name="password"
-      [(ngModel)]="userLoginModel.password"
+      [(ngModel)]="userLoginType.password"
       matInput
       required
       appContainsCharacterAndNumber
