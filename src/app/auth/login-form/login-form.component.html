@@ -11,7 +11,7 @@
     />
 
     <!-- display hints on errors -->
-    <mat-hint align="end">{{ userLoginModel.username.length }}/13</mat-hint>
+    <mat-hint align="end">{{ userLoginModel.username?.length }}/13</mat-hint>
     <mat-hint
       align="start"
       *ngIf="
@@ -34,8 +34,8 @@
     />
 
     <!-- newer syntax since Angular 17 -->
-    @if (isPasswordControlDirty() &&
-    loginForm.getError('minlength', 'password')) {
+    @if (isPasswordControlDirty() && loginForm.getError('minlength',
+    'password')) {
     <mat-hint align="end"> Min length should be 5 characters! </mat-hint>
     } @else if ( isPasswordControlDirty() &&
     loginForm.getError("containsCharacterAndNumber", "password") ) {

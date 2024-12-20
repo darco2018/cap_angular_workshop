@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import { LoginFormComponent } from "../login-form/login-form.component";
+import { LoginFormComponent } from '../login-form/login-form.component';
 import { AuthService } from '../auth.service';
+import { UserLoginType } from '../userLogin';
 
 @Component({
   selector: 'app-login-container',
   imports: [LoginFormComponent],
-  template: `
-    <app-login-form />
-  `,
-  styleUrl: './login-container.component.scss'
+  template: ` <app-login-form (onSubmit)="onSubmit($event)" /> `,
+  styleUrl: './login-container.component.scss',
 })
 export class LoginContainerComponent {
-  // to tylko przykłąd DI
-    constructor(private authService: AuthService){}
+  constructor(private authService: AuthService) {}
+
+  onSubmit(userLogin: UserLoginType): void {
+    console.log(' onSubmit  - userLogin', userLogin);
+  }
 }

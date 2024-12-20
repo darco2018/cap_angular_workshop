@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -22,16 +22,20 @@ import { ValidatorsModule } from '../../validators/validators.module';
 export class LoginFormComponent {
   // @ViewChild decorator will look for the element with thie template reference
   // 'loginForm' and assign it to the property 'loginForm'
-  @ViewChild('loginForm')
-  loginForm!: NgForm;
-  userLoginModel: UserLoginType = { password: '', username: '' };
-
-  isPasswordControlDirty(): boolean {
-    return (this.loginForm?.controls['password']?.dirty ?? false);
-  }
+  @ViewChild('loginForm') loginForm!: NgForm;
+  userLoginType: UserLoginType = { password: '', username: '' };
+  @Output() onSubmit = new EventEmitter<UserLoginType>();
 
   onLogin(): void {
     console.log('Login now...');
+
+    //alternative way of getting values from the controls
+    // const password = this.loginForm.controls['password']?.value;
+    this.onSubmit.emit(this.userLoginType);
     this.loginForm.resetForm();
+  }
+
+  isPasswordControlDirty(): boolean {
+    return this.loginForm?.controls['password']?.dirty ?? false;
   }
 }
