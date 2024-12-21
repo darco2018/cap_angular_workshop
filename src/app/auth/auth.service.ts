@@ -18,4 +18,8 @@ export class AuthService {
 
     return password === USER.password && username === USER.username;
   }
+
+  logout(): void{
+    
+  }
 }

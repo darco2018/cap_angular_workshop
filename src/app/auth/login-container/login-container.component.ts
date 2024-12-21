@@ -16,6 +16,7 @@ export class LoginContainerComponent {
   onSubmit(userLogin: UserLoginType): void {
     console.log(' onSubmit  - userLogin', userLogin);
 
+    this.authService.login(userLogin);
     this.router.navigate(['']); // redirect to index page
   }
 }

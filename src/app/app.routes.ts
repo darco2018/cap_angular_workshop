@@ -6,7 +6,8 @@ import { loginGuard } from './auth/login.guard';
 export const routes: Routes = [
   // { path: 'login', component: LoginContainerComponent },
 
-  // old way of LAZY LOADING using loadChildren
+  // used in 99% of projects because new way is very fresh
+  // old way of LAZY LOADING using loadChildren(using auth.module & auth-routing.module and this below)
   // ONLY WHEN the user never navigates to the /login path, the AuthModule(containing import { AuthRoutingModule/LoginContainerComponent) will be loaded.
   // TO TEST IT:go to '', check no LoginContainerComponent in main.js, then go to /login,
   // check LoginContainerComponent appears in a chunk.js, also @angular_forms is loaded and some other files
@@ -19,7 +20,7 @@ export const routes: Routes = [
   // { path: '', component: DashboardContainerComponent, canActivate: [loginGuard] },
   // we are automatically redirected to /login if guard returns false
 
-  // dashboard route po dodaniu LAZY LOADING
+  // dashboard route po dodaniu LAZY LOADING (modern way)
   {
     path: '',
     canActivate: [loginGuard],
