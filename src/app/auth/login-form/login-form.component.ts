@@ -23,6 +23,7 @@ export class LoginFormComponent {
   // @ViewChild decorator will look for the element with thie template reference
   // 'loginForm' and assign it to the property 'loginForm'
   @ViewChild('loginForm') loginForm!: NgForm;
+
   userLoginType: UserLoginType = { password: '', username: '' };
   @Output() onSubmit = new EventEmitter<UserLoginType>();
 

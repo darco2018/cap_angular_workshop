@@ -13,10 +13,10 @@ import { Router } from '@angular/router';
 export class LoginContainerComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit(userLogin: UserLoginType): void {
-    console.log(' onSubmit  - userLogin', userLogin);
+  onSubmit(userLoginType: UserLoginType): void {
+    console.log(' onSubmit - userLogin', userLoginType);
 
-    this.authService.login(userLogin);
+    this.authService.login(userLoginType);
     this.router.navigate(['']); // redirect to index page
   }
 }

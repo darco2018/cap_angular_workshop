@@ -10,6 +10,7 @@ import { CanActivateFn, Router, UrlTree } from '@angular/router';
 // state: A RouterStateSnapshot object that contains information about the router’s current state,
 //    including the URL and other metadata.
 //  The function returns either a UrlTree or a boolean
+
 export const loginGuard: CanActivateFn = (route, state): UrlTree | boolean => {
   console.log( " ~ state:", state);
   console.log( " ~route:", route); 

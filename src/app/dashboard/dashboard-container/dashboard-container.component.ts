@@ -10,7 +10,7 @@ import { Observable, Subscription } from 'rxjs';
   imports: [RouterModule, CommonModule],
   template: `
     <a [routerLink]="['/login']">Back to login</a>
-<!--  1st SOLUTION - grab data directly fro Observables plus use ngOnDestroy()
+    <!--  1st SOLUTION - grab data directly fro Observables plus use ngOnDestroy()
     <div *ngFor="let category of categoryList">
       {{ category | json }}
     </div> -->
@@ -18,12 +18,27 @@ import { Observable, Subscription } from 'rxjs';
     <!-- async returns values from Observables, The subscription gets CLOSED as well -->
     <div *ngFor="let category of categoriesList$ | async">
       {{ category | json }}
-    </div> -->
+    </div>
+    -->
   `,
   styleUrl: './dashboard-container.component.scss',
 })
-                               // 1st SOLUTION: implements OnDestroy
-export class DashboardContainerComponent  {
+// 1st SOLUTION: implements OnDestroy
+export class DashboardContainerComponent {
+
+    // 2nd Solution:
+
+    categoriesList$: Observable<DashboardCategory[]>;
+
+    constructor(private dashboardService: DashboardService) {
+      this.categoriesList$ = this.dashboardService.dashboardCategoryList$;
+    }
+  
+    public ngOnInit(): void {
+      this.dashboardService.fetchDashboardCategories();
+    }
+
+
   // 1st SOLUTION - grab data directly fro Observables plus use ngOnDestroy()
   // private subscription?: Subscription;
   // categoryList: DashboardCategory[] = [];
@@ -48,14 +63,5 @@ export class DashboardContainerComponent  {
   //   });
   // }
 
-  // 2nd Solution
 
-  categoriesList$: Observable<DashboardCategory[]>;
-  constructor(private dashboardService: DashboardService) {
-    this.categoriesList$ = this.dashboardService.dashboardCategoryList$;
-  }
-  public ngOnInit(): void {
-    this.dashboardService.fetchDashboardCategories();
-   
-  }
 }

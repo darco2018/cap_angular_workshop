@@ -7,9 +7,7 @@ import { DASHBOARD_CATEGORIES_LIST } from './constants/dashboard-categories';
   providedIn: 'root',
 })
 export class DashboardService {
-  private _dashboardCategoryList$ = new BehaviorSubject<DashboardCategory[]>(
-    []
-  );
+  private _dashboardCategoryList$ = new BehaviorSubject<DashboardCategory[]>([]);
   dashboardCategoryList$ = this._dashboardCategoryList$.asObservable();
 
   // simulates httpClient API call
