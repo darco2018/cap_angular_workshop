@@ -1,9 +1,11 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
+import { AuthService } from './auth.service';
+import { map } from 'rxjs';
 
 // Guard of type CanActivate example
 
- // we are automatically redirected from '' to '/login' if guard returns false
+// we are automatically redirected from '' to '/login' if guard returns false
 
 // CanActivateFn is a type alias for a function that acts as a route guard. It takes two parameters:
 // route: An ActivatedRouteSnapshot object that contains information about the current route
@@ -11,28 +13,36 @@ import { CanActivateFn, Router, UrlTree } from '@angular/router';
 //    including the URL and other metadata.
 //  The function returns either a UrlTree or a boolean
 
-export const loginGuard: CanActivateFn = (route, state): UrlTree | boolean => {
-  console.log( " ~ state:", state);
-  console.log( " ~route:", route); 
-  
+export const loginGuard: CanActivateFn = (route, state) => {
+  console.log(' ~ state:', state);
+  console.log(' ~route:', route);
   const url: UrlTree = inject(Router).createUrlTree(['login']); // creates REDIRECT to 'login'
-  return true || url ;
 
- /// ---- first version below, when random number was to decide if we will be redirected or not:
-
-  // !! operator is a common JavaScript idiom used to convert a value to a boolean - (0 or 1)
-  // FOR TEST PURPOSES: const canEnter = !!Math.round(Math.random()); // pretends a condition to be fullfilled, eg we are logged in or not
-
-  // FOR TEST PURPOSES:: return canEnter || url ;
-  // url could be omitted, then we would only hane 2 options: naviagatio proceeds or is cancelled)
-       // true || ...   ->  route ''(or any other in app.routes.ts) can be activated
-       // false|| url is returnes -> route cannot be activated, you are redirected to 'login' (in other words, new route is initiated)
+  return inject(AuthService).isUserLoggedIn$.pipe(   
+    map((isLoggedIn) => {
+      console.log(' map ~ isLoggedIn:', isLoggedIn);
+      return isLoggedIn || url;
+    })
+  );
 };
-// If the function returns true, the route can be activated. 
+
+/// ---- first version below, when random number was to decide if we will be redirected or not:
+
+//   return true || url ;
+
+// !! operator is a common JavaScript idiom used to convert a value to a boolean - (0 or 1)
+// FOR TEST PURPOSES: const canEnter = !!Math.round(Math.random()); // pretends a condition to be fullfilled, eg we are logged in or not
+
+// FOR TEST PURPOSES:: return canEnter || url ;
+// url could be omitted, then we would only hane 2 options: naviagatio proceeds or is cancelled)
+// true || ...   ->  route ''(or any other in app.routes.ts) can be activated
+// false|| url is returnes -> route cannot be activated, you are redirected to 'login' (in other words, new route is initiated)
+
+// If the function returns true, the route can be activated.
 // If it returns false, the route cannot be activated.
-//  If the function returns a UrlTree, the current navigation is canceled, 
+//  If the function returns a UrlTree, the current navigation is canceled,
 // and a new navigation begins to the URL represented by the UrlTree
 
-// If canEnter is false, the expression canEnter || url evaluates to url 
-//because false is falsy, and the OR operator moves 
+// If canEnter is false, the expression canEnter || url evaluates to url
+//because false is falsy, and the OR operator moves
 // to the next operand, which is url.
