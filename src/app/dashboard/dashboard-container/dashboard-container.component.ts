@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { DashboardService } from '../dashboard.service';
 import { DashboardCategory } from '../models/dashboard-category.type';
 import { CommonModule } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, interval, map, Observable, of, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-container',
@@ -18,26 +18,23 @@ import { Observable, Subscription } from 'rxjs';
     <!-- async returns values from Observables, The subscription gets CLOSED as well -->
     <div *ngFor="let category of categoriesList$ | async">
       {{ category | json }}
-    </div>
-    -->
+    </div>  
   `,
   styleUrl: './dashboard-container.component.scss',
 })
 // 1st SOLUTION: implements OnDestroy
 export class DashboardContainerComponent {
+  // 2nd Solution:
 
-    // 2nd Solution:
+  categoriesList$: Observable<DashboardCategory[]>;
 
-    categoriesList$: Observable<DashboardCategory[]>;
+  constructor(private dashboardService: DashboardService) {
+    this.categoriesList$ = this.dashboardService.dashboardCategoryList$;   
+  }
 
-    constructor(private dashboardService: DashboardService) {
-      this.categoriesList$ = this.dashboardService.dashboardCategoryList$;
-    }
-  
-    public ngOnInit(): void {
-      this.dashboardService.fetchDashboardCategories();
-    }
-
+  public ngOnInit(): void {
+    this.dashboardService.fetchDashboardCategories();
+  }
 
   // 1st SOLUTION - grab data directly fro Observables plus use ngOnDestroy()
   // private subscription?: Subscription;
@@ -62,6 +59,29 @@ export class DashboardContainerComponent {
   //     this.categoryList = [...categories];
   //   });
   // }
-
-
 }
+
+
+// <input type="text" #v/>
+// <button (click)="click$.next(v.value)">Click me</button>
+
+// click$ = new Subject<string>();
+
+// this.click$.subscribe(v => console.log( 'v' , v));
+
+// // each time Observable's value is fired
+// of(1, 2, 3)
+// .pipe(map(v => v*v)) // map is an operator; more of them on b.next(11);
+// .subscribe((value: number) => console.log(value));
+
+// const b = new BehaviorSubject<number>(10);
+// b.subscribe((n) => 
+// console.log(n)); // the numbers below get logged
+// b.next(11);
+// b.next(12);
+// b.next(13);
+// b.next(14);
+
+// interval(1000) // Emits incremental numbers periodically in time.
+// .pipe(map(v => v*v)) // map is an operator; more of them on b.next(11);
+// .subscribe((value: number) => console.log(value));
