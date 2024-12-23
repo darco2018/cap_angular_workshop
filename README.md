@@ -1,3 +1,15 @@
+The bootcamp course includes such concepts:
+
+- custom validation
+- observables with async pipe
+- route guard
+- resolver
+
+Plus a failed attempt to explain switchMap of jxrs API.
+
+
+
+
 # CostEvidenceApp
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
