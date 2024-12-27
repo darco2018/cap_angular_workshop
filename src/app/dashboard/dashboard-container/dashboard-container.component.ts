@@ -3,7 +3,15 @@ import { RouterModule } from '@angular/router';
 import { DashboardService } from '../dashboard.service';
 import { DashboardCategory } from '../models/dashboard-category.type';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject, interval, map, Observable, of, Subject, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  interval,
+  map,
+  Observable,
+  of,
+  Subject,
+  Subscription,
+} from 'rxjs';
 import { CategoriesListComponent } from '../../component/categories-list/categories-list.component';
 
 @Component({
@@ -21,8 +29,7 @@ import { CategoriesListComponent } from '../../component/categories-list/categor
       {{ category | json }}
     </div>  
     -->
-    <app-categories-list [categoriesList]="categoriesList" />
-
+    <app-categories-list [categoriesList]="categoriesList"></app-categories-list>
   `,
   styleUrl: './dashboard-container.component.scss',
 })
@@ -34,9 +41,9 @@ export class DashboardContainerComponent {
   categoriesList: DashboardCategory[] = [];
 
   constructor(private dashboardService: DashboardService) {
-    this.categoriesList$ = this.dashboardService.dashboardCategoryList$;   
+    this.categoriesList$ = this.dashboardService.dashboardCategoryList$;
 
-    this.categoriesList$.subscribe(categories => {
+    this.categoriesList$.subscribe((categories) => {
       this.categoriesList = categories;
     });
   }
@@ -70,7 +77,6 @@ export class DashboardContainerComponent {
   // }
 }
 
-
 // <input type="text" #v/>
 // <button (click)="click$.next(v.value)">Click me</button>
 
@@ -84,7 +90,7 @@ export class DashboardContainerComponent {
 // .subscribe((value: number) => console.log(value));
 
 // const b = new BehaviorSubject<number>(10);
-// b.subscribe((n) => 
+// b.subscribe((n) =>
 // console.log(n)); // the numbers below get logged
 // b.next(11);
 // b.next(12);

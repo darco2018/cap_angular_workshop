@@ -1,10 +1,10 @@
 import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { DashboardCategory } from '../../dashboard/models/dashboard-category.type';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-categories-list-item',
-  imports: [MatIcon],
+  imports: [MatIconModule],
   template: `
    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
    <h6>{{ category.title }} </h6>
