@@ -9,7 +9,7 @@ import { DASHBOARD_CATEGORIES_LIST } from '../../dashboard/constants/dashboard-c
   imports: [CommonModule, CategoriesListItemComponent],
   template: `
     @for(category of categoriesList; track category.title){
-      <div class="category-list-container">
+      <div class="flex-container">
         <app-categories-list-item [category]="category" />
       </div>
     } @empty { 

@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-categories-list-item',
   imports: [MatIconModule],
   template: `
-   <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+   <mat-icon class="flex-item" aria-hidden="false" aria-label="Example home icon" >{{ category.icon }}</mat-icon>
    <h6>{{ category.title }} </h6>
   `,
   styleUrl: './categories-list-item.component.scss'
@@ -16,10 +16,16 @@ export class CategoriesListItemComponent {
 
   @Output() categoryClicked = new EventEmitter<DashboardCategory>();
 
-  @HostBinding('style.color') get color(){
+  // get color() method returns the 'color' property of the 'categor'y object.
+  // the decorator binds the return value of this getter to the color style of the host element.
+  // This value is then used to set the text color of the host element.
+  // all HTML elements have css:    color: givenColor
+  @HostBinding('style.color') get color(){        // replaces [style.color]="category.color"  ; [value]="myValue"
     return this.category.color;
   }
 
+  // Listens for click events on the host element
+  // replaces <mat-icon (click)="hostClicked() ... and <h6 (click)="hostClicked()   ; (click)="myClick()"
   @HostListener('click', ['$event.target'])
   hostClicked(): void {
     console.log('- hostclicked', this.hostClicked);
