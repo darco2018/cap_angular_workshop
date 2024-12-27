@@ -9,7 +9,8 @@ export const routes: Routes = [
 
   // used in 99% of projects because new way is very fresh
   // old way of LAZY LOADING using loadChildren(using auth.module & auth-routing.module and this below)
-  // ONLY WHEN the user never navigates to the /login path, the AuthModule(containing import { AuthRoutingModule/LoginContainerComponent) will be loaded.
+  // ONLY WHEN the user never navigates to the /login path, the AuthModule(containing 
+  //import { AuthRoutingModule/LoginContainerComponent) will be loaded.
   // TO TEST IT:go to '', check no LoginContainerComponent in main.js, then go to /login,
   // check LoginContainerComponent appears in a chunk.js, also @angular_forms is loaded and some other files
   {
@@ -25,7 +26,9 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [loginGuard],
-    resolve: [dashboardCategoryResolver],
+    resolve: [dashboardCategoryResolver], // Once the resolver has fetched the data, the route is activated, and the component specified in loadComponent is loaded.
+    // The resolver fetches the data after the loginGuard check but before the component is loaded.
+    // load the component lazily:
     loadComponent: () =>
       import(
         './dashboard/dashboard-container/dashboard-container.component'

@@ -18,10 +18,9 @@ export const loginGuard: CanActivateFn = (route, state) => {
   console.log(' ~route:', route);
   const url: UrlTree = inject(Router).createUrlTree(['login']); // creates REDIRECT to 'login'
 
-  return inject(AuthService).isUserLoggedIn$.pipe(   
+  return inject(AuthService).isUserLoggedIn$.pipe(   // // observable isUserLoggedIn$ is expected to be of type Observable<boolean>.
     map((isLoggedIn) => {
-      console.log(' map ~ isLoggedIn:', isLoggedIn);
-      return isLoggedIn || url;
+      return isLoggedIn || url; 
     })
   );
 };
@@ -31,12 +30,14 @@ export const loginGuard: CanActivateFn = (route, state) => {
 //   return true || url ;
 
 // !! operator is a common JavaScript idiom used to convert a value to a boolean - (0 or 1)
-// FOR TEST PURPOSES: const canEnter = !!Math.round(Math.random()); // pretends a condition to be fullfilled, eg we are logged in or not
+// FOR TEST PURPOSES: const canEnter = !!Math.round(Math.random()); // pretends a condition to be fullfilled,
+// eg we are logged in or not
 
 // FOR TEST PURPOSES:: return canEnter || url ;
 // url could be omitted, then we would only hane 2 options: naviagatio proceeds or is cancelled)
 // true || ...   ->  route ''(or any other in app.routes.ts) can be activated
-// false|| url is returnes -> route cannot be activated, you are redirected to 'login' (in other words, new route is initiated)
+// false|| url is returnes -> route cannot be activated, you are redirected to 'login' (in other words,
+// new route is initiated)
 
 // If the function returns true, the route can be activated.
 // If it returns false, the route cannot be activated.

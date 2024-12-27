@@ -36,6 +36,10 @@ export class AuthService {
     this._isUserLoggedIn$.next(true); // emit the new value
     return true;
   }
+  // return true; >> The calling code can 
+  // immediately know if the 
+  //login was successful or not, without needing 
+  //to subscribe to the observable.
 
   logout(): void {}
 }

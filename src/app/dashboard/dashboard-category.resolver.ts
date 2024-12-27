@@ -2,6 +2,7 @@ import { ResolveFn } from '@angular/router';
 import { DashboardService } from './dashboard.service';
 import { inject } from '@angular/core';
 
+// the function you assign to ResolveFn can return an Observable
 export const dashboardCategoryResolver: ResolveFn<boolean> = (route, state) => {
   const dashboardService = inject(DashboardService);
   return dashboardService.fetchDashboardCategories();
