@@ -4,10 +4,11 @@ import { DashboardService } from '../dashboard.service';
 import { DashboardCategory } from '../models/dashboard-category.type';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject, interval, map, Observable, of, Subject, Subscription } from 'rxjs';
+import { CategoriesListComponent } from '../../component/categories-list/categories-list.component';
 
 @Component({
   selector: 'app-dashboard-container',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, CategoriesListComponent],
   template: `
     <a [routerLink]="['/login']">Back to login</a>
     <!--  1st SOLUTION - grab data directly fro Observables plus use ngOnDestroy()
@@ -15,10 +16,13 @@ import { BehaviorSubject, interval, map, Observable, of, Subject, Subscription }
       {{ category | json }}
     </div> -->
 
-    <!-- async returns values from Observables, The subscription gets CLOSED as well -->
+    <!-- async returns values from Observables, The subscription gets CLOSED as well 
     <div *ngFor="let category of categoriesList$ | async">
       {{ category | json }}
     </div>  
+    -->
+    <app-categories-list [categoriesList]="categoriesList" />
+
   `,
   styleUrl: './dashboard-container.component.scss',
 })
@@ -27,9 +31,14 @@ export class DashboardContainerComponent {
   // 2nd Solution:
 
   categoriesList$: Observable<DashboardCategory[]>;
+  categoriesList: DashboardCategory[] = [];
 
   constructor(private dashboardService: DashboardService) {
     this.categoriesList$ = this.dashboardService.dashboardCategoryList$;   
+
+    this.categoriesList$.subscribe(categories => {
+      this.categoriesList = categories;
+    });
   }
 
   public ngOnInit(): void {
