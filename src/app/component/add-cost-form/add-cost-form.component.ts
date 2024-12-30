@@ -5,6 +5,7 @@ import {
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
+  MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { DashboardCategory } from '../../dashboard/models/dashboard-category.type';
@@ -20,7 +21,7 @@ import { CommonModule } from '@angular/common';
     MatDialogClose,
     MatDialogTitle,
     MatIconModule,
-    CommonModule
+    CommonModule,
   ],
   template: `
     <h2 mat-dialog-title>Add {{ category.title }}</h2>
@@ -34,18 +35,27 @@ import { CommonModule } from '@angular/common';
       >
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-button>Add cost</button>
+      <button mat-button (click)="saveCost()" >Add cost</button>
       <button mat-button mat-dialog-close>Close</button>
     </mat-dialog-actions>
+    <!-- mat-dialog-close -	[Attr] Added to a <button>, makes the button close the dialog with an optional result from the bound value. -->
   `,
   styleUrl: './add-cost-form.component.scss',
 })
 export class AddCostFormComponent {
-  public iconStyle: { 'color': string };
+  public iconStyle: { color: string };
 
-  constructor(@Inject(MAT_DIALOG_DATA) public category: DashboardCategory) {
+  constructor(
+    public dialogRef: MatDialogRef<AddCostFormComponent, any>,
+    @Inject(MAT_DIALOG_DATA) public category: DashboardCategory
+  ) {
     this.iconStyle = {
-      'color': this.category.color,
+      color: this.category.color,
     };
+  }
+
+  public saveCost(): void {
+    console.log('test');
+    this.dialogRef.close('Pizza!');
   }
 }
