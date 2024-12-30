@@ -17,8 +17,9 @@ export const loginGuard: CanActivateFn = (route, state) => {
   console.log(' ~ state:', state);
   console.log(' ~route:', route);
   const url: UrlTree = inject(Router).createUrlTree(['login']); // creates REDIRECT to 'login'
-
+  
   return inject(AuthService).isUserLoggedIn$.pipe(   // // observable isUserLoggedIn$ is expected to be of type Observable<boolean>.
+    
     map((isLoggedIn) => {
       return isLoggedIn || url; 
     })

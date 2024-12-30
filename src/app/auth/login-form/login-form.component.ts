@@ -20,7 +20,7 @@ import { ValidatorsModule } from '../../validators/validators.module';
   ],
 })
 export class LoginFormComponent {
-  // @ViewChild decorator will look for the element with thie template reference
+  // @ViewChild property decorator will look for the element with thie template reference
   // 'loginForm' and assign it to the property 'loginForm'
   @ViewChild('loginForm') loginForm!: NgForm;
 

@@ -5,15 +5,28 @@ import { loginGuard } from './auth/login.guard';
 import { dashboardCategoryResolver } from './dashboard/dashboard-category.resolver';
 
 export const routes: Routes = [
+  // EAGER LOADING 
   // { path: 'login', component: LoginContainerComponent },
 
-  // used in 99% of projects because new way is very fresh
-  // old way of LAZY LOADING using loadChildren(using auth.module & auth-routing.module and this below)
-  // ONLY WHEN the user never navigates to the /login path, the AuthModule(containing 
-  //import { AuthRoutingModule/LoginContainerComponent) will be loaded.
-  // TO TEST IT:go to '', check no LoginContainerComponent in main.js, then go to /login,
+  // LAZY LOADING ENTIRE MODULES:
+ // (NOTE:  @defer block is NEW feature (angular 17) specifically designed for lazy loading STANDALONE components, not modules. 
+//  So, the loadChildren property with dynamic imports remains the standard way to lazy load ENTIRE MODULES.)
+
+  // LAZY LOADING entire modules:
+  // ONLY WHEN the user never navigates to the /login path, the AuthModule - containing import to AuthRoutingModule,
+  // which provides LoginContainerComponent - will be loaded.
+
+  // TO TEST IT:go to '' and check that no LoginContainerComponent in main.js. Then go to /login,
   // check LoginContainerComponent appears in a chunk.js, also @angular_forms is loaded and some other files
-  {
+
+  // Path Resolution
+// When the user navigates to /login, the router loads the AuthModule.
+// Inside the AuthModule, the AuthRoutingModule takes over.
+// The AuthRoutingModule sees the empty path ('') and maps it to the LoginContainerComponent.
+// So, the /login path in the main routing configuration effectively becomes /login/ within the AuthModule,
+//  which matches the empty path ('') in the AuthRoutingModule and displays the LoginContainerComponent.
+
+{
     path: 'login',
     loadChildren: () =>
       import('./auth/auth.module').then((module) => module.AuthModule),
@@ -22,7 +35,9 @@ export const routes: Routes = [
   // { path: '', component: DashboardContainerComponent, canActivate: [loginGuard] },
   // we are automatically redirected to /login if guard returns false
 
-  // dashboard route po dodaniu LAZY LOADING (modern way)
+
+  // LAZY LOAD STANDALONE components (modern way):
+  // loadComponent is used -  the root path ('') will load the DashboardContainerComponent when the user navigates to this path
   {
     path: '',
     canActivate: [loginGuard],
@@ -32,9 +47,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import(
         './dashboard/dashboard-container/dashboard-container.component'
-      ).then((module) => module.DashboardContainerComponent),
+      ).then((module) => module.DashboardContainerComponent), // DashboardContainerComponent  is not @ngModule but @Copmponenet
   },
 
-  // wildcard ** - you are automatically redirected when you put somethong after http://localhost:4200/''
+  // wildcard ** - you are automatically redirected when you put something after http://localhost:4200/''
   { path: '**', redirectTo: 'login' },
 ];

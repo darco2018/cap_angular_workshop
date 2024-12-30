@@ -5,6 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, AuthRoutingModule], // AuthRoutingModule has route to LoginContainerComponent
+  imports: [CommonModule, AuthRoutingModule], 
+  // AuthRoutingModule has route to LoginContainerComponent
 })
 export class AuthModule {}

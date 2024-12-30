@@ -8,9 +8,11 @@ import {
 } from '@angular/forms';
 
 export function containsCharacterAndNumberValidator(): ValidatorFn {
+
   return (control: AbstractControl): ValidationErrors | null => {
     const containsCharacterAndNumberRegexp = /^(?=.*[A-Za-z])(?=.*\d).+$/gm;
     const isValid = containsCharacterAndNumberRegexp.test(control.value);
+    
     return isValid
       ? null
       : { containsCharacterAndNumber: { value: control.value } };
