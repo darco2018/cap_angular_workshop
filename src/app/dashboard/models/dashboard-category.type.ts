@@ -4,4 +4,7 @@ export interface DashboardCategory {
     color:string;
 }
 
-// ? means optional
+export interface CategoryWithCost{
+    category: DashboardCategory;
+    cost: number;
+}
